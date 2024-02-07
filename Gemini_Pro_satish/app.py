@@ -1,10 +1,14 @@
 import streamlit as st
+import os
 #from PathLib import Path
 import pathlib
 import textwrap
 import PyPDF2
 import base64
 import PIL.Image
+from dotenv import load_dotenv
+load_dotenv()
+
 
 import google.generativeai as genai
 
@@ -15,10 +19,10 @@ def to_markdown(text):
   text = text.replace('•', '  *')
   return Markdown(textwrap.indent(text, '> ', predicate=lambda _: True))
 
-GOOGLE_API_KEY="AIzaSyBc223b7DPjc28wr7taDqjTIwCeMxCtP_8"
+api_key = os.environ.get("GOOGLE_API_KEY")
 
-genai.configure(api_key=GOOGLE_API_KEY)
-st.title('Uber pickups in NYC')
+genai.configure(api_key=api_key)
+st.title('Your own gemeni model')
 
 value=st.radio(label='please select MODEL',options=['Gemini_Pro','Gemini_Pro_Vision'])
 
